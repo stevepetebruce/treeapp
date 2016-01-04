@@ -1,0 +1,21 @@
+<form>
+    <label>Customer Name:</label>
+    <input type="text" ng-model="customersList.newCustomer.name">
+    <label>Car Model:</label>
+    <input type="text" ng-model="customersList.newCustomer.carmodel">
+    <label>Tree Type:</label>
+    <input type="text" ng-model="customersList.newCustomer.treetype">
+    <button ng-click="customersList.addCustomer()">Add Customer</button>
+</form>
+<ul>
+ <li ui-sref="customerDetails({ customerId: customer._id })" ng-repeat="customer in customersList.customers">
+     {{customer.name}}
+     <p>
+         {{customer.carmodel}}
+     </p>
+     <p>
+         {{customer.treetype}}
+     </p>
+     <button ng-click="customersList.removeCustomer(customer)">X</button>
+ </li>
+</ul>
