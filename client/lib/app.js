@@ -1,0 +1,1 @@
+angular.module('treeapp', ['angular-meteor','ui.router','accounts.ui']); 

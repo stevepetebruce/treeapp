@@ -3,7 +3,6 @@
 //  carmodel
 //  treetype
 
-if (Meteor.isServer) {
     Meteor.startup(function () {
         if (Customers.find().count() === 0) {
             var customers = [
@@ -25,4 +24,3 @@ if (Meteor.isServer) {
             }
         }
     });
-}
