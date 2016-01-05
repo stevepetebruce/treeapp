@@ -10,6 +10,9 @@
                 //Add new customer object
                 this.newCustomer = {};
                 
+                // subscribes to publish in the server folder
+                this.subscribe('customers');
+                
                 //Find Customers
                 this.helpers({
                     customers: () => {

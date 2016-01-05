@@ -15,7 +15,7 @@ Customers.allow({
     }
 });
 
-//Removes accounts create account
+//Removes accounts 'create account'
 Accounts.config({
     forbidClientAccountCreation: true
 });

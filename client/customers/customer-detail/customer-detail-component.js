@@ -23,7 +23,8 @@
                         $set: {
                             name: this.customer.name,
                             carmodel: this.customer.carmodel,
-                            treetype: this.customer.treetype
+                            treetype: this.customer.treetype,
+                            'public': this.customer.public
                         }
                     }, (error) => {
                             if (error) {
