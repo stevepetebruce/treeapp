@@ -1,1 +1,10 @@
-The Cool Customer: {{customerDetails.customerId}}
+The Cool Customer: 
+<form>
+    Name: <input type="text" ng-model="customerDetails.customer.name">
+    Car Model: <input type="text" ng-model="customerDetails.customer.carmodel">
+    Tree: <input type="text" ng-model="customerDetails.customer.treetype">
+    
+    <button ng-click="customerDetails.save()">Save</button>
+
+</form>
+<button ui-sref="map">Close</button>

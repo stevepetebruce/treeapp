@@ -63,14 +63,40 @@ if (Meteor.isClient) {
         
     });
     
-    //Customer Details template and controllers
+    //Customer Details template and controller
     angular.module('treeapp').directive('customerDetails', function() {
        return {
             restrict: 'E',
             templateUrl: 'customer-details.html',
             controllerAs: 'customerDetails',
-            controller: function($scope, $stateParams) {
-                this.customerId = $stateParams.customerId;   
+            controller: function($scope, $stateParams, $reactive) {
+                $reactive(this).attach($scope);
+                
+                //Find customer detail. Mongo syntax 'findOne'
+                this.helpers({
+                    customer: () => {
+                        return Customers.findOne({ _id: $stateParams.customerId});
+                    }
+                });  
+                
+                //Save edited customer
+                // two paramaters - 'update' Mongo syntax and 
+                // the set action to update relevant fields
+                this.save = () => {
+                    Customers.update({_id: $stateParams.customerId}, {
+                        $set: {
+                            name: this.customer.name,
+                            carmodel: this.customer.carmodel,
+                            treetype: this.customer.treetype
+                        }
+                    }, (error) => {
+                        if (error) {
+                            console.log('error');
+                        } else {
+                            console.log('done');
+                        }
+                    });
+                };
             }
        }
     });
