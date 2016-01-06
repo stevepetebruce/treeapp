@@ -1,5 +1,6 @@
 //ui.router 
     angular.module('treeapp').config(function ($urlRouterProvider, $stateProvider, $locationProvider) {
+        
         //Sets url to regular HTML5 /etc.
         $locationProvider.html5Mode(true);
         

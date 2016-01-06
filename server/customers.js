@@ -1,13 +1,13 @@
 //publish from Server to Client (keep only in server folder)
 
-Meteor.publish("customers", function () {
-    return Customers.find({
+Meteor.publish("customers", function (options) {
+    let selector = {
         $or: [
             {
                 $and: [
                     // Public tick box
-                    {"public": true},
-                    {"public": {$exists: true}}
+                    {'public': true},
+                    {'public': {$exists: true}}
                 ]
             },
             {
@@ -18,5 +18,8 @@ Meteor.publish("customers", function () {
                 ]
             }
         ]
-    });
+    };
+    
+    Counts.publish(this, 'numberOfCustomers', Customers.find(selector), {noReady: true});
+    return Customers.find(selector, options);
 });

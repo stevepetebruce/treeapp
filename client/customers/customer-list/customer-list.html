@@ -9,8 +9,13 @@
     <input type="checkbox" ng-model="customersList.newCustomer.public">
     <button ng-click="customersList.addCustomer()">Add Customer</button>
 </form>
+<h1>Customer</h1>
+<select ng-model="customersList.orderProperty" ng-change="customersList.updateSort()">
+    <option value="1">Ascending</option>
+    <option value="-1">Descending</option>
+</select>
 <ul>
- <li ui-sref="customerDetails({ customerId: customer._id })" ng-repeat="customer in customersList.customers">
+ <li ui-sref="customerDetails({ customerId: customer._id })" dir-paginate="customer in customersList.customers | itemsPerPage: customersList.perPage" total-items="customersList.customersCount">
      {{customer.name}}
      <p>
          {{customer.carmodel}}
@@ -21,3 +26,4 @@
      <button ng-click="customersList.removeCustomer(customer)">X</button>
  </li>
 </ul>
+<dir-pagination-controls on-page-change="customersList.pageChanged(newPageNumber)"></dir-pagination-controls>

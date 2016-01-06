@@ -7,16 +7,33 @@
             controller: function($scope, $reactive) {
                 $reactive(this).attach($scope);
                 
-                //Add new customer object
                 this.newCustomer = {};
+                this.perPage = 3;
+                this.page = 1;
+                this.sort = {
+                    name: 1
+                };
+                this.orderProperty = '1';
                 
-                // subscribes to publish in the server folder
-                this.subscribe('customers');
+                // 1 - subscribes to publish in the server folder.
+                // 2 -  plus object with properties for pagination
+                this.subscribe('customers', () => {
+                    return [
+                      {
+                        limit: parseInt(this.perPage),
+                        skip: parseInt((this.getReactively('page') - 1) * this.perPage),
+                        sort: this.getReactively('sort')
+                      }
+                    ]
+                });
                 
-                //Find Customers
+                //Find Customers (and sort) and counts collection
                 this.helpers({
                     customers: () => {
-                        return Customers.find({});
+                        return Customers.find({}, { sort : this.getReactively('sort') });
+                    },
+                    customersCount: () => {
+                        return Counts.get('numberOfCustomers');
                     }
                 });
                 
@@ -32,7 +49,19 @@
                 //Remove individual customer
                 this.removeCustomer = (customer) => {
                     Customers.remove({_id: customer._id});
-                }
+                };
+                
+                // Pagination
+                this.pageChanged = (newPage) => {
+                    this.page = newPage;
+                };
+                
+                // Order pagination
+                this.updateSort = () => {
+                    this.sort = {
+                      name: parseInt(this.orderProperty)
+                    }
+                };
             }
         }
         
