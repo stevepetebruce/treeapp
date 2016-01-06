@@ -7,12 +7,16 @@
             controller: function($scope, $stateParams, $reactive) {
                 $reactive(this).attach($scope);
                 
+                this.subscribe('customers');
+                this.subscribe('users');
+                
                 //Find customer detail. Mongo syntax 'findOne'
                 this.helpers({
                     customer: () => {
                         return Customers.findOne({ _id: $stateParams.customerId});
                     }
-                });  
+                }); 
+                
                 
                 //Save edited customer
                 // two paramaters - 'update' Mongo syntax and 
@@ -24,7 +28,8 @@
                             name: this.customer.name,
                             carmodel: this.customer.carmodel,
                             treetype: this.customer.treetype,
-                            'public': this.customer.public
+                            'public': this.customer.public,
+                            location: this.customer.location
                         }
                     }, (error) => {
                             if (error) {
@@ -34,6 +39,51 @@
                             }
                     });
                 };
+                
+                
+                 //Map Controller
+                this.map = {
+                    center: {
+                        latitude: -26.3204,
+                        longitude: -48.8437
+                    },
+                    zoom: 8,
+                    events: {
+                        click: (mapModel, eventName, originalEventArgs) => {
+                            if (!this.customer)
+                                return;
+                            
+                            if (!this.customer.location)
+                                this.customer.location = {};
+                                
+                            this.customer.location.latitude = originalEventArgs[0].latLng.lat();
+                            this.customer.location.longitude = originalEventArgs[0].latLng.lng();
+                            
+                            //scope apply required because this event handler is outside of the angular domain
+                            $scope.$apply();
+                        }
+                    },
+                    marker: {
+                        options: { 
+                            draggable: true,
+                            icon: 'http://aruncare.co.uk/wp-content/themes/JointsWP-master/library/css/icons/green_tree_icon.png'
+                                 },
+                        events: {
+                            dragend: (marker, eventName, args) => {
+                                if (!this.customer.location)
+                                    this.customer.location = {};
+                                
+                                this.customer.location.latitude = marker.getPosition().lat();
+                                this.customer.location.longitude = marker.getPosition().lng();
+                            }
+                        }
+                        
+                        
+                    }
+                };
+                
+                
+                
             }
        }
     });

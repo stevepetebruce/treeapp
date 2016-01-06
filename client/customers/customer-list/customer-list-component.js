@@ -14,16 +14,18 @@
                     name: 1
                 };
                 this.orderProperty = '1';
+                this.searchText = '';
                 
                 // 1 - subscribes to publish in the server folder.
-                // 2 -  plus object with properties for pagination
+                // 2 -  plus object with properties for pagination and search
                 this.subscribe('customers', () => {
                     return [
                       {
                         limit: parseInt(this.perPage),
                         skip: parseInt((this.getReactively('page') - 1) * this.perPage),
                         sort: this.getReactively('sort')
-                      }
+                      },
+                      this.getReactively('searchText')
                     ]
                 });
                 
@@ -60,6 +62,20 @@
                 this.updateSort = () => {
                     this.sort = {
                       name: parseInt(this.orderProperty)
+                    }
+                };
+                
+                //map
+                this.map = {
+                    center: {
+                        latitude: -26.3204,
+                        longitude: -48.8437
+                    },
+                    zoom: 8,
+                    marker: {
+                        options: { 
+                            icon: 'http://aruncare.co.uk/wp-content/themes/JointsWP-master/library/css/icons/green_tree_icon.png'
+                                 }
                     }
                 };
             }

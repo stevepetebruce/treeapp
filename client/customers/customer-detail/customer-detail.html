@@ -4,7 +4,16 @@
     Car Model: <input type="text" ng-model="customerDetails.customer.carmodel">
     Tree: <input type="text" ng-model="customerDetails.customer.treetype">
     Public: <input type="checkbox" ng-model="customerDetails.customer.public">
-    <button ng-click="customerDetails.save()">Save</button>
+    
 
 </form>
-<button ui-sref="map">Close</button>
+
+<div class="trees-map">
+    <div class="angular-google-map-container">
+        <ui-gmap-google-map center="customerDetails.customer.location || customerDetails.map.center" events="customerDetails.map.events" zoom="customerDetails.map.zoom">
+            <ui-gmap-marker coords="customerDetails.customer.location" options="customerDetails.map.marker.options" events="customerDetails.map.marker.events" idkey="customerDetails.customer._id">
+            </ui-gmap-marker>
+        </ui-gmap-google-map>
+    </div>
+</div>
+<button ng-click="customerDetails.save()">Save</button> <button ui-sref="map">Back</button>

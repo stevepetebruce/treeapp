@@ -9,7 +9,11 @@
     <input type="checkbox" ng-model="customersList.newCustomer.public">
     <button ng-click="customersList.addCustomer()">Add Customer</button>
 </form>
+
+
+
 <h1>Customer</h1>
+<input type="search" ng-model="customersList.searchText" placeholder="Search">
 <select ng-model="customersList.orderProperty" ng-change="customersList.updateSort()">
     <option value="1">Ascending</option>
     <option value="-1">Descending</option>
@@ -26,4 +30,17 @@
      <button ng-click="customersList.removeCustomer(customer)">X</button>
  </li>
 </ul>
+
+
+<div class="angular-google-map-container">
+  <ui-gmap-google-map center="customersList.party.location || customersList.map.center" zoom="customersList.map.zoom">
+    <ui-gmap-markers models="customersList.customers" options="customersList.map.marker.options" coords="'location'"
+                     fit="false" idkey="'_id'" dorebuildall="true">
+    </ui-gmap-markers>
+  </ui-gmap-google-map>
+</div>
+
+
 <dir-pagination-controls on-page-change="customersList.pageChanged(newPageNumber)"></dir-pagination-controls>
+
+

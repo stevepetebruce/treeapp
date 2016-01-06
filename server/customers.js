@@ -1,7 +1,15 @@
 //publish from Server to Client (keep only in server folder)
 
-Meteor.publish("customers", function (options) {
+Meteor.publish("customers", function (options, searchString) {
+    // no search return everything
+    if (!searchString || searchString == null){
+        searchString = '';
+    }
+    
     let selector = {
+        //filter whose name contains the searchString
+        name: {'$regex' : '.*' + searchString || '' + '.*', '$options' : 'i' },
+        
         $or: [
             {
                 $and: [
