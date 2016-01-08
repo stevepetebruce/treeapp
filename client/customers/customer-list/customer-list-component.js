@@ -71,13 +71,45 @@
                         latitude: -26.3204,
                         longitude: -48.8437
                     },
-                    zoom: 8,
+                    zoom: 10,
+                    bounds: {},
                     marker: {
                         options: { 
                             icon: 'http://aruncare.co.uk/wp-content/themes/JointsWP-master/library/css/icons/green_tree_icon.png'
                                  }
                     }
                 };
+                
+                //static plantation border
+                $scope.polygons = [
+                    {
+                        id: 1,
+                        path: [
+                            {
+                                latitude: -26.3204,
+                                longitude: -48.8437
+                            },
+                            {
+                                latitude: -26.3204,
+                                longitude: -49.2437
+                            },
+                            {
+                                latitude: -26.7204,
+                                longitude: -48.8437
+                            }
+                        ],
+                        stroke: {
+                            color: '#008000',
+                            weight: 1
+                        },
+                        geodesic: false,
+                        visible: true,
+                        fill: {
+                            color: '#008000',
+                            opacity: 0.1
+                        }
+                    }
+                ];
             }
         }
         

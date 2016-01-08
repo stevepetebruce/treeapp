@@ -1,5 +1,5 @@
 //app modules
-angular.module('treeapp', ['angular-meteor','ui.router','accounts.ui','angularUtils.directives.dirPagination','uiGmapgoogle-maps']); 
+angular.module('treeapp', ['angular-meteor','ui.router','accounts.ui','angularUtils.directives.dirPagination','uiGmapgoogle-maps','ui.bootstrap']); 
 
 
 // angular conditional for phonegap mobile/desktop

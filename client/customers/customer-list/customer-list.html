@@ -1,46 +1,72 @@
-<form>
-    <label>Customer Name:</label>
-    <input type="text" ng-model="customersList.newCustomer.name">
-    <label>Car Model:</label>
-    <input type="text" ng-model="customersList.newCustomer.carmodel">
-    <label>Tree Type:</label>
-    <input type="text" ng-model="customersList.newCustomer.treetype">
-    <label>Public:</label>
-    <input type="checkbox" ng-model="customersList.newCustomer.public">
-    <button ng-click="customersList.addCustomer()">Add Customer</button>
-</form>
-
-
-
-<h1>Customer</h1>
-<input type="search" ng-model="customersList.searchText" placeholder="Search">
-<select ng-model="customersList.orderProperty" ng-change="customersList.updateSort()">
-    <option value="1">Ascending</option>
-    <option value="-1">Descending</option>
-</select>
-<ul>
- <li ui-sref="customerDetails({ customerId: customer._id })" dir-paginate="customer in customersList.customers | itemsPerPage: customersList.perPage" total-items="customersList.customersCount">
-     {{customer.name}}
-     <p>
-         {{customer.carmodel}}
-     </p>
-     <p>
-         {{customer.treetype}}
-     </p>
-     <button ng-click="customersList.removeCustomer(customer)">X</button>
- </li>
-</ul>
-
-
-<div class="angular-google-map-container">
-  <ui-gmap-google-map center="customersList.party.location || customersList.map.center" zoom="customersList.map.zoom">
-    <ui-gmap-markers models="customersList.customers" options="customersList.map.marker.options" coords="'location'"
-                     fit="false" idkey="'_id'" dorebuildall="true">
-    </ui-gmap-markers>
-  </ui-gmap-google-map>
+<div class="form-group">
+    <form>
+       
+            <label>Customer Name:</label>
+            <input type="text" ng-model="customersList.newCustomer.name">
+       
+            <label>Car Model:</label>
+            <input type="text" ng-model="customersList.newCustomer.carmodel">
+       
+            <label>Tree Type:</label>
+            <input type="text" ng-model="customersList.newCustomer.treetype">
+      
+            <label>Public:</label>
+            <input type="checkbox" ng-model="customersList.newCustomer.public">
+       
+        <button ng-click="customersList.addCustomer()" class="btn">Add Customer</button>
+    </form>
 </div>
 
 
+<div class="row h100">
+  <div class="col-md-6 ma-parties-col">
+    <div class="row">
+      <div class="col-xs-8">
+        <form class="form-inline search-form">
+          
+            <h1>Customer</h1>
+            <input type="search" ng-model="customersList.searchText" placeholder="Search">
+            <select ng-model="customersList.orderProperty" ng-change="customersList.updateSort()">
+                <option value="1">Ascending</option>
+                <option value="-1">Descending</option>
+            </select>
+            <ul class="list-group">
+             <li ui-sref="customerDetails({ customerId: customer._id })" dir-paginate="customer in customersList.customers | itemsPerPage: customersList.perPage" total-items="customersList.customersCount"  class="list-group-item ma-customer-item">
+                 <div class="row">
+                      <div class="col-sm-8">
+                          <h3  class="ma-customer-name">Name: {{customer.name}} <button ng-click="customersList.removeCustomer(customer)">X</button></h3>
+                         <p class="ma-customer-description">
+                             Car Model: {{customer.carmodel}}
+                         </p>
+                         <p class="ma-customer-description">
+                             Tree type planted: {{customer.treetype}}
+                         </p>
+                         
+                     </div>
+                 </div>
+             </li>
+            </ul>
+          
+        </form>
+      </div>
+    </div>
+</div>
+
+<div class="col-md-6 h100 ma-angular-map-col">
+    <div class="angular-google-map-container h100">
+        <div class="angular-google-map-container">
+          <ui-gmap-google-map center="customersList.map.location || customersList.map.center" zoom="customersList.map.zoom">
+            <ui-gmap-markers models="customersList.customers" options="customersList.map.marker.options" coords="'location'"
+                             fit="false" idkey="'_id'" dorebuildall="true">
+            </ui-gmap-markers>
+            <ui-gmap-polygon static="true" ng-repeat="p in polygons track by p.id" path="p.path" stroke="p.stroke" visible="p.visible" geodesic="p.geodesic" fill="p.fill" fit="false"></ui-gmap-polygon>
+            
+          </ui-gmap-google-map>
+        </div>
+    </div>
+</div>
+
 <dir-pagination-controls on-page-change="customersList.pageChanged(newPageNumber)"></dir-pagination-controls>
+</div>
 
 

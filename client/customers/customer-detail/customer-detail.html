@@ -1,19 +1,27 @@
+<div class="row h100">
+  <div class="col-md-6 ma-parties-col">
+    <div class="row">
+      <div class="col-xs-8">
+        <form class="form-inline search-form">
 
-<form>
-    Name: <input type="text" ng-model="customerDetails.customer.name">
-    Car Model: <input type="text" ng-model="customerDetails.customer.carmodel">
-    Tree: <input type="text" ng-model="customerDetails.customer.treetype">
-    Public: <input type="checkbox" ng-model="customerDetails.customer.public">
-    
-
-</form>
-
-<div class="trees-map">
-    <div class="angular-google-map-container">
-        <ui-gmap-google-map center="customerDetails.customer.location || customerDetails.map.center" events="customerDetails.map.events" zoom="customerDetails.map.zoom">
-            <ui-gmap-marker coords="customerDetails.customer.location" options="customerDetails.map.marker.options" events="customerDetails.map.marker.events" idkey="customerDetails.customer._id">
-            </ui-gmap-marker>
-        </ui-gmap-google-map>
+            <p>Name: <input type="text" ng-model="customerDetails.customer.name"></p>
+            <p>Car Model: <input type="text" ng-model="customerDetails.customer.carmodel"></p>
+            <p>Tree: <input type="text" ng-model="customerDetails.customer.treetype"></p>
+            <p>Public: <input type="checkbox" ng-model="customerDetails.customer.public"></p>
+                <button ng-click="customerDetails.save()">Save</button> <button ui-sref="map">Back</button>
+        </form>
+      </div>
     </div>
+  </div>
+  <div class="col-md-6 h100 ma-angular-map-col">
+    <div class="angular-google-map-container h100">
+        
+                <ui-gmap-google-map center="customerDetails.customer.location || customerDetails.map.center" events="customerDetails.map.events" zoom="customerDetails.map.zoom">
+                    <ui-gmap-marker coords="customerDetails.customer.location" options="customerDetails.map.marker.options" events="customerDetails.map.marker.events" idkey="customerDetails.customer._id">
+                    </ui-gmap-marker>
+                    <ui-gmap-polygon static="true" ng-repeat="p in polygons track by p.id" path="p.path" stroke="p.stroke" visible="p.visible" geodesic="p.geodesic" fill="p.fill" fit="false"></ui-gmap-polygon>
+                </ui-gmap-google-map>
+           
+    </div>
+  </div>
 </div>
-<button ng-click="customerDetails.save()">Save</button> <button ui-sref="map">Back</button>
